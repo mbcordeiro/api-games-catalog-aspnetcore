@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiGamesCatalog.Exceptions;
 
 namespace ApiGamesCatalog.Controllers.V1
 {
@@ -50,7 +51,7 @@ namespace ApiGamesCatalog.Controllers.V1
                 var game = await _gameService.InsertGame(gameInputModel);
                 return Created("", null);
             }
-            catch(Exception ex)
+            catch(GameAlreadySavedException ex)
             {
                 return UnprocessableEntity("Error");
             }
@@ -64,9 +65,9 @@ namespace ApiGamesCatalog.Controllers.V1
                 await _gameService.UpdateGame(id, game);
                 return NoContent(); 
             } 
-            catch (Exception ex)
+            catch (GameUnsavedException ex)
             {
-                return NotFound("Game not found");
+                return NotFound("There is already a game with this name for this producer.");
             }
         }
 
@@ -78,7 +79,7 @@ namespace ApiGamesCatalog.Controllers.V1
                 await _gameService.UpdateGamePrice(id, price);
                 return NoContent();
             }
-            catch (Exception ex) 
+            catch (GameUnsavedException ex) 
             {
                 return NotFound("Game not found");
             }
@@ -92,7 +93,7 @@ namespace ApiGamesCatalog.Controllers.V1
                 await _gameService.DeleteGame(id);
                 return NoContent();
             }
-            catch
+            catch (GameUnsavedException ex)
             {
                 return NotFound("Game not found");
             }
