@@ -1,4 +1,5 @@
 ﻿using ApiGamesCatalog.Entities;
+using ApiGamesCatalog.Exceptions;
 using ApiGamesCatalog.InputModels;
 using ApiGamesCatalog.Repositories;
 using ApiGamesCatalog.ViewModels;
@@ -103,7 +104,7 @@ namespace ApiGamesCatalog.Services
             var games = await _gameRepository.GetGameByNameAndPublisher(name, publisher);
 
             if (games.Count > 0)
-                throw new Exception("Game already registered");
+                throw new GameAlreadySavedException();
 
             return games;
         }
@@ -113,7 +114,7 @@ namespace ApiGamesCatalog.Services
             var game = await _gameRepository.GetGameById(id);
 
             if (game == null)
-                throw new Exception("Game not register");
+                throw new GameUnsavedException();
 
             return game;
         }
