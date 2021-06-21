@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApiGamesCatalog.InputModels;
+using ApiGamesCatalog.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,40 +11,40 @@ namespace ApiGamesCatalog.Controllers.V1
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class GamessController : ControllerBase
+    public class GamesController : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<List<object>>> GetGames()
+        public async Task<ActionResult<List<GameViewModel>>> GetGames()
         {
             return Ok();
         }
 
         [HttpGet("id: guild")]
-        public async Task<ActionResult<List<object>>> GetGameById(Guid id)
+        public async Task<ActionResult<List<GameViewModel>>> GetGameById(Guid id)
         {
             return Ok();
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<object>>> InsertGame(object game)
+        public async Task<ActionResult<List<GameViewModel>>> InsertGame(GameInputModel game)
         {
             return Created("", game);
         }
 
         [HttpPut("id: guild")]
-        public async Task<ActionResult<List<object>>> UpdateGame(Guid id, object game)
+        public async Task<ActionResult<List<GameViewModel>>> UpdateGame(Guid id, GameInputModel game)
         {
             return NoContent();
         }
 
         [HttpPatch("id: guild/price/{price:double}")]
-        public async Task<ActionResult<List<object>>> UpdateGamePrice(Guid id, double preco)
+        public async Task<ActionResult<List<GameViewModel>>> UpdateGamePrice(Guid id, double preco)
         {
             return NoContent();
         }
 
         [HttpDelete("id: guild")]
-        public async Task<ActionResult<List<object>>> DeleteGame(Guid id)
+        public async Task<ActionResult<List<GameViewModel>>> DeleteGame(Guid id)
         {
             return NoContent();
         }
