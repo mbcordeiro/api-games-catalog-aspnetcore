@@ -1,3 +1,4 @@
+using ApiGamesCatalog.Middlewares;
 using ApiGamesCatalog.Repositories;
 using ApiGamesCatalog.Services;
 using Microsoft.AspNetCore.Builder;
@@ -64,6 +65,8 @@ namespace ApiGamesCatalog
             {
                 endpoints.MapControllers();
             });
+
+            app.UseMiddleware<ExceptionMiddleware>();
         }
     }
 }
